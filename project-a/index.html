@@ -1,0 +1,101 @@
+<!-- 
+Template for IMA's Creative Coding Lab 
+
+Project A: Generative Creatures
+CCLaboratories Biodiversity Atlas 
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Scutoid</title>
+
+    <!-- allow special characters, including Arabic, Chinese, Korean, Japanese, etc. -->
+    <meta charset="UTF-8">
+    <!-- link the style sheet -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- import p5.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+    <script>
+        // prevent scrolling when spacebar and arrow keys are pressed.
+        window.addEventListener("keydown", function (e) { if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) { e.preventDefault(); } }, false);
+    </script>
+</head>
+
+<body>
+    <!-- title -->
+    <div id="title-wrapper">
+        <h1 class="headline black">The Scutoid</h1>
+    </div>
+
+    <!-- main content -->
+    <div id="main-wrapper">
+        <div id="p5-canvas-container">
+            <!-- This is where your p5 sketch will be appended and appear! -->
+        </div>
+        <div class="two-columns">
+            <div class="left">
+                <h3 class="red">Scientific Name:</h3>
+                <p>Proteus cursor</p>
+
+                <h3 class="red">Discovered by / at:</h3>
+                <p>Ryan Gao, 10/16/25 2:47 PM</p>
+
+                <h3 class="green">Family:</h3>
+                <p>The Scutoid belongs to the family Proteamorphidae, or "Changeable Ones." This family is defined by its members' unstable, fluid morphologies and their unique ability to alter their physical form in response to environmental stimuli.</p>
+            </div>
+            <div class="right">
+                <h3 class="green">Habitat:</h3>
+                <p>Aqueous digital micro-environments. It thrives in the nutrient-rich data streams 
+                    of microscopic simulation chambers, often observed floating among particulate 
+                    data fragments and other microscopic digital detritus.</p>
+
+                <h3 class="green">Appearance:</h3>
+                <p>A shifting gelatinous body with 5 to 10 ever-changing, waving limbs. Its form is 
+                    never the same from one moment to the next.</p>
+
+                <h3 class="green">Key Characteristics:</h3>
+                <ul>
+                    <li>Exhibits a flight response to proximity.</li>
+                    <li>Generates 5-10 transient, waving limbs.</li>
+                    <li>Enters a hyperkinetic state when startled.</li>
+                    <li>...</li>
+                </ul>
+            </div>
+        </div>
+        <div class="one-column">
+            <p>
+                <span class="yellow">What we know so far about the scutoid?</span>
+                The Scutoid is a living algorithm of perpetual change, a digital bacterium 
+                that defies static observation. It flees from perceived threats and possesses 
+                a "Hyperkinetic Escape Reflex"—when startled, it moves violently and scrambles 
+                its local environment. It sustains its constant shape-shifting and generation 
+                of 5-10 waving limbs by metabolizing metallic data traces. It is less an 
+                organism and more a chaotic process, leading to myths that it is a guardian of 
+                fundamental digital entropy, capable of destabilizing entire systems if provoked.
+                <br>
+                <span class="yellow">Guidelines for human interaction with this creature</span>
+                The Scutoid is shy. Hovering your cursor too close will cause it stress and trigger its flight instinct. 
+                Do not provoke. Clicking on or near the Scutoid is strictly discouraged. 
+                This triggers its Hyperkinetic Escape Reflex, which is highly stressful for the creature and can be 
+                disorienting for the observer due to the rapid, chaotic environmental shifts. 
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="black">
+        <p>A CCLab project made by [Your Name] in [Current Semester]</p>
+    </div>
+
+    <!-- Home: Link back to the ATLAS page-->
+    <div id="home">
+        <a href="https://cclab.work/atlas">Back to the ATLAS</a>
+    </div>
+
+    <!-- Include your sketch.js file here -->
+    <script src="sketch.js" type="text/javascript"> </script>
+</body>
+
+</html>
