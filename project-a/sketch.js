@@ -7,6 +7,8 @@ let numLimbs;
 function setup() {
   createCanvas(800, 500);
   numLimbs = random(5, 10);
+  canvas.parent("p5-canvas-container");
+  numLimbs = random(5, 10);
 }
 
 function draw() {
