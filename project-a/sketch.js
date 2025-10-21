@@ -5,9 +5,9 @@ let yVel = 0;
 let numLimbs;
 
 function setup() {
-  createCanvas(800, 500);
-  numLimbs = random(5, 10);
+  let canvas = createCanvas(800, 500);
   canvas.parent("p5-canvas-container");
+  numLimbs = random(5, 10);
 }
 
 function draw() {
