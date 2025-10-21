@@ -15,7 +15,7 @@ function draw() {
   drawBacteria(cenX, cenY, 50, numLimbs);
   
   if (mouseIsPressed === true)
-    frameRate(100);
+  frameRate(100);
   else 
     frameRate(5);
   
@@ -24,8 +24,9 @@ function draw() {
   let dy = cenY - mouseY;
   let distance = dist(mouseX, mouseY, cenX, cenY);
   
-  // Only move away if mouse is within 300 pixels
-  if (distance < 300) {
+  // Only move away if mouse is close enough (within 200 pixels)
+  if (distance < 300 && distance > 0) {
+    // Normalize direction and apply force
     dx /= distance;
     dy /= distance;
     
@@ -40,7 +41,8 @@ function draw() {
   cenY += yVel;
   
   // Bounce off borders with proper boundary checking
-  let bacteriaRadius = 80;
+  let bacteriaRadius = 80; // Approximate radius including limbs
+  
   if (cenX - bacteriaRadius < 0) {
     cenX = bacteriaRadius;
     xVel = -xVel * 0.8;
@@ -48,12 +50,13 @@ function draw() {
     cenX = width - bacteriaRadius;
     xVel = -xVel * 0.8;
   }
+  
   if (cenY - bacteriaRadius < 0) {
     cenY = bacteriaRadius;
     yVel = -yVel * 0.8;
   } else if (cenY + bacteriaRadius > height) {
     cenY = height - bacteriaRadius;
-    yVel = -yVel * 0.8;
+    yVel = -Math.abs(yVel) * 0.8;
   }
 }
 
@@ -77,7 +80,7 @@ function drawBackground() {
     circle(random(150, 650), random(0, 500), random(10, 50));
   }
 
-  // small particles
+  //
   for (let dia = 0; dia <= 600; dia += random(10, 100)) {
     for (let i = 0; i <= 2 * PI; i += random(0.01, 0.1)) {
       stroke(random(0, 255), random(0, 255), 255);
