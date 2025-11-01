@@ -38,12 +38,12 @@ class RyanDancer {
   constructor(startX, startY) {
     this.x = startX;
     this.y = startY;
-    this.degs = 0;
-    this.blink = 0;
     // add properties for your dancer here:
     //..
     //..
     //..
+    this.degs = 0;
+    this.blink = 0;
   }
   update() {
     // update properties here to achieve
