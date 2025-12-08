@@ -1,6 +1,7 @@
-let imgPBot, imgPBag, imgPS, backGround, recycle, plasticObjects, oceanSound, trashSound;
+let imgPBot, imgPBag, imgPS, backGround, recycle, oceanSound, trashSound;
 let trash = [];
 let year = 2025;
+let plasticObjects = 5250000000000;
 
 function preload() {
   imgPBot = loadImage("assets/trashPhotos/plasticbottle.png");
@@ -52,7 +53,7 @@ function draw() {
     trash.push(new Trash(random(width), random(width), imgPS));
     year++;
   }
-  plasticObjects = trash.length * 1000000;
+  plasticObjects += trash.length * 12000000;
 
   updateDisplay();
 }
