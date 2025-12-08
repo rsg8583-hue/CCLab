@@ -4,14 +4,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>CCLab Project</title>
-
+  <title>CCLab Project B Plastic Waste in Our Oceans</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 
   <script src="lib/p5.js"></script>
   <script src="lib/p5.sound.js"></script>
-
   <!-- Alternatively, you can import the library via CDN (Content Delivery Network). -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.js"></script> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/addons/p5.sound.js"></script> -->
@@ -20,15 +17,31 @@
 <body>
 
   <div class="main-wrapper">
-    <h1>Plastic Waste</h1>
+    <header>
+      <h1>Plastic Waste in Our Oceans</h1>
+      <p class="subtitle">An interactive simulation showing the growing problem of plastic pollution</p>
+    </header>
 
     <!-- the following div will contain the p5 canvas. -->
     <div id="p5-canvas-container">
       <!-- p5 canvas will be appended here. -->
     </div>
 
-    <p>Year: <span id="year-display">2025</span></p>
-    <p>Plastic Objects in Ocean: <span id="plastic-count">0</span></p>
+    <div class="info">
+      <p>Year: <span id="year-display">2025</span></p>
+      <p>Plastic Objects in Ocean: <span id="plastic-count">0</span></p>
+    </div>
+
+    <p class="description">Each year, between 11 and 12 million metric tons (or up to 26 billion pounds) of plastic
+      waste enter the ocean,
+      equating to roughly 2,000 truckloads daily, with most coming from land via rivers, breaking down into trillions of
+      tiny pieces that pollute surfaces and seabeds, harming marine life. While estimates vary, scientists agree the
+      volume is massive and growing, with 5.25 trillion pieces already estimated to be floating in the ocean.</p>
+  </div>
+
+  <footer>
+    <p>CCLab Project • Interactive Simulation of Plastic Pollution • Ryan Gao • Fall 2025</p>
+  </footer>
   </div>
 
   <!-- the script tag below should always be at the bottom, right before the closing body tag -->

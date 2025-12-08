@@ -1,17 +1,19 @@
-let imgPBot, imgPBag, imgPS, backGround, recycle, plasticObjects;
+let imgPBot, imgPBag, imgPS, backGround, recycle, plasticObjects, oceanSound, trashSound;
 let trash = [];
 let year = 2025;
 
 function preload() {
-  imgPBot = loadImage("assets/trashPhotos/plasticbottle.jpg");
+  imgPBot = loadImage("assets/trashPhotos/plasticbottle.png");
   imgPBag = loadImage("assets/trashPhotos/plasticBag.png");
   imgPS = loadImage("assets/trashPhotos/plasticStraws.png");
-  imgPaBag = loadImage("assets/trashPhotos/paperBag.jpeg");
-  imgPaS = loadImage("assets/trashPhotos/paperStraw.jpg");
+  imgPaBag = loadImage("assets/trashPhotos/paperBag.png");
+  imgPaS = loadImage("assets/trashPhotos/paperStraw.png");
   imgPaBot = loadImage("assets/trashPhotos/paperBottle.png");
   backGround = loadImage("assets/trashPhotos/ocean.jpg");
-  recycle = loadImage("assets/trashPhotos/recycle.avif");
+  recycle = loadImage("assets/trashPhotos/recycle.png");
   converter = loadImage("assets/trashPhotos/converter.avif");
+  oceanSound = loadSound("assets/trashPhotos/ocean.mp3");
+  trashSound = loadSound("assets/trashPhotos/trash.mp3");
 }
 
 function setup() {
@@ -24,10 +26,11 @@ function setup() {
   }
 }
 
+
 function draw() {
   image(backGround, 0, 0, 800, 500);
-  image(recycle, 0, height / 2 - 50, 100, 100);
-  image(converter, width - 100, height / 2 - 50, 100, 100);
+  image(recycle, 0, height / 2 - 50, 120, 120);
+  image(converter, width - 120, height / 2 - 50, 120, 120);
   for (let i = 0; i < trash.length; i++) {
     trash[i].draw();
     trash[i].update();
@@ -115,17 +118,19 @@ class Trash {
 
   recycled() {
     if (this.drag()) {
-      if (dist(this.x, this.y, 50, height / 2) < 50) {
+      if (dist(this.x, this.y, 60, height / 2) < 60) {
         this.delete = true;
+        trashSound.play();
       }
     }
   }
 
   converted(image) {
     if (this.drag()) {
-      if (dist(this.x, this.y, width - 50, height / 2) < 50) {
+      if (dist(this.x, this.y, width - 65, height / 2) < 60) {
         this.img = image;
         this.isConverted = true;
+        trashSound.play();
       }
     }
   }
@@ -135,5 +140,11 @@ class Trash {
     this.opacity = constrain(this.opacity, 0, 255);
     if (this.opacity < 1)
       this.delete = true;
+  }
+}
+
+function mousePressed() {
+  if (oceanSound.isPlaying() == false) {
+    oceanSound.play();
   }
 }
