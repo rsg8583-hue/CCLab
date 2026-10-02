@@ -4,47 +4,185 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CCLab Project B Plastic Waste in Our Oceans</title>
+  <title>Plastic Waste in Our Oceans · Ryan Gao</title>
+  <meta name="description"
+    content="An interactive p5.js simulation about ocean plastic pollution. Recycle the plastic already in the water, swap it for paper to slow new plastic at its source, and try to clear the ocean for good.">
+  <meta name="theme-color" content="#051526">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23051526'/%3E%3Cpath d='M5 19c3.5-3 7.5-3 11 0s7.5 3 11 0' fill='none' stroke='%233cc9b8' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M5 13c3.5-3 7.5-3 11 0s7.5 3 11 0' fill='none' stroke='%233cc9b8' stroke-opacity='.5' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap">
   <link rel="stylesheet" type="text/css" href="style.css">
 
   <script src="lib/p5.js"></script>
   <script src="lib/p5.sound.js"></script>
-  <!-- Alternatively, you can import the library via CDN (Content Delivery Network). -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.js"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/addons/p5.sound.js"></script> -->
 </head>
 
 <body>
+  <a class="skip-link" href="#simulation">Skip to the simulation</a>
 
-  <div class="main-wrapper">
-    <header>
+  <main class="page">
+    <header class="intro">
+      <p class="eyebrow">CCLab · Interactive simulation</p>
       <h1>Plastic Waste in Our Oceans</h1>
-      <p class="subtitle">An interactive simulation showing the growing problem of plastic pollution</p>
+      <p class="lede">Recycling clears the plastic already in the water, but more keeps arriving every year. Swap
+        plastic for paper to slow the flow at its source, and see if you can stop it for good and clear the ocean.</p>
     </header>
 
-    <!-- the following div will contain the p5 canvas. -->
-    <div id="p5-canvas-container">
-      <!-- p5 canvas will be appended here. -->
-    </div>
+    <section class="stage" id="simulation" aria-label="Simulation">
+      <div class="frame">
+        <div id="p5-canvas-container" class="canvas-wrap">
+          <p class="canvas-placeholder" id="canvas-placeholder">Loading simulation…</p>
+          <noscript>
+            <p class="canvas-placeholder">This simulation needs JavaScript to run.</p>
+          </noscript>
+        </div>
 
-    <div class="info">
-      <p>Year: <span id="year-display">2025</span></p>
-      <p>Plastic Objects in Ocean: <span id="plastic-count">0</span></p>
-    </div>
+        <div class="controls">
+          <div class="control-group" role="group" aria-label="Simulation controls">
+            <button type="button" class="btn btn-primary" id="play-toggle">
+              <svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true">
+                <rect x="3.5" y="2.5" width="3" height="11" rx="1" fill="currentColor" />
+                <rect x="9.5" y="2.5" width="3" height="11" rx="1" fill="currentColor" />
+              </svg>
+              <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4.5 2.8v10.4a.8.8 0 0 0 1.2.7l8.3-5.2a.8.8 0 0 0 0-1.4L5.7 2.1a.8.8 0 0 0-1.2.7Z"
+                  fill="currentColor" />
+              </svg>
+              <span class="btn-label">Pause</span>
+            </button>
+            <button type="button" class="btn" id="reset">
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M2.75 8a5.25 5.25 0 1 0 1.6-3.77M2.75 2.5v3.25H6" fill="none" stroke="currentColor"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Reset
+            </button>
 
-    <p class="description">Each year, between 11 and 12 million metric tons (or up to 26 billion pounds) of plastic
-      waste enter the ocean,
-      equating to roughly 2,000 truckloads daily, with most coming from land via rivers, breaking down into trillions of
-      tiny pieces that pollute surfaces and seabeds, harming marine life. While estimates vary, scientists agree the
-      volume is massive and growing, with 5.25 trillion pieces already estimated to be floating in the ocean.</p>
-  </div>
+            <div class="speed">
+              <span class="group-label" id="speed-label">Speed</span>
+              <div class="segmented" role="radiogroup" aria-labelledby="speed-label">
+                <input type="radio" name="speed" id="speed-half" value="0.5">
+                <label for="speed-half">0.5×</label>
+                <input type="radio" name="speed" id="speed-normal" value="1" checked>
+                <label for="speed-normal">1×</label>
+                <input type="radio" name="speed" id="speed-double" value="2">
+                <label for="speed-double">2×</label>
+              </div>
+            </div>
 
-  <footer>
-    <p>CCLab Project • Interactive Simulation of Plastic Pollution • Ryan Gao • Fall 2025</p>
+            <button type="button" class="btn" id="sound-toggle" aria-pressed="false">
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M2.5 6v4h2.5l3.5 3V3L5 6H2.5Z" fill="none" stroke="currentColor" stroke-width="1.4"
+                  stroke-linejoin="round" />
+                <path class="sound-waves" d="M11 5.5a3.5 3.5 0 0 1 0 5M12.75 3.75a6 6 0 0 1 0 8.5" fill="none"
+                  stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                <path class="sound-mute" d="M11 6l3.5 4M14.5 6 11 10" fill="none" stroke="currentColor"
+                  stroke-width="1.4" stroke-linecap="round" />
+              </svg>
+              <span class="btn-label">Sound off</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p class="sr-only" id="announcer" aria-live="polite"></p>
+    </section>
+
+    <section aria-label="Simulation statistics">
+      <dl class="stats">
+        <div class="stat">
+          <dt>Simulation year</dt>
+          <dd id="year-display">–</dd>
+          <dd class="stat-meta" id="production">+525 billion pieces / yr</dd>
+        </div>
+        <div class="stat">
+          <dt><span class="dot dot-plastic" aria-hidden="true"></span>Plastic in the water</dt>
+          <dd id="plastic-count">0</dd>
+          <dd class="stat-meta">est. pieces · <span id="plastic-objects">0</span> objects</dd>
+        </div>
+        <div class="stat">
+          <dt><span class="dot dot-recycle" aria-hidden="true"></span>Recycled</dt>
+          <dd id="recycled-count">0</dd>
+          <dd class="stat-meta">objects</dd>
+        </div>
+        <div class="stat">
+          <dt><span class="dot dot-convert" aria-hidden="true"></span>Converted to paper</dt>
+          <dd id="converted-count">0</dd>
+          <dd class="stat-meta">objects</dd>
+        </div>
+      </dl>
+      <p class="stats-note">
+        Each object stands for about 175 billion pieces, so the 30 starting objects match the estimated
+        5.25 trillion pieces of plastic floating at the ocean surface. Growth after that is illustrative.
+        <span id="cap-note" hidden>The water has reached its display limit. The counter keeps growing, but new
+          objects are no longer drawn.</span>
+      </p>
+    </section>
+
+    <section class="info how" aria-labelledby="how-title">
+      <h2 id="how-title">How to interact</h2>
+      <ol class="steps">
+        <li>
+          <strong>Sweep up plastic</strong>
+          Press and drag across the water. Every piece you pass over joins the pile and follows you until you let go.
+        </li>
+        <li>
+          <strong>Drop it on a zone</strong>
+          <span class="zone-name"><span class="dot dot-recycle" aria-hidden="true"></span>Recycle</span> takes the
+          pile out of the water.
+          <span class="zone-name"><span class="dot dot-convert" aria-hidden="true"></span>Convert</span> swaps it for
+          paper, which then fades away.
+        </li>
+        <li>
+          <strong>Slow the flow</strong>
+          New plastic drifts in every simulated year. Each piece you convert slows it, and after 60 conversions it
+          stops, so the water can finally clear.
+        </li>
+      </ol>
+    </section>
+
+    <section class="info about" aria-labelledby="about-title">
+      <h2 id="about-title">About the simulation</h2>
+      <div class="about-grid">
+        <div>
+          <h3>The real problem</h3>
+          <p>Each year an estimated 11 to 12 million metric tons of plastic waste enter the ocean. Most of it comes
+            from land, carried by rivers, and breaks into ever smaller fragments that pollute the surface and the
+            seabed and harm marine life. One widely cited study put the number of pieces already floating at the
+            surface above 5 trillion.</p>
+        </div>
+        <div>
+          <h3>A conceptual model, not a forecast</h3>
+          <p>The plastic counter starts at that estimate of 5.25 trillion pieces, at about 175 billion pieces per
+            object, and one simulated year passes every second at normal speed. After the starting point, the rate of
+            growth is chosen for the artwork and does not predict real pollution levels.</p>
+        </div>
+        <div>
+          <h3>Conversion is a metaphor</h3>
+          <p>Converting stands for choosing alternatives before plastic is made, which is why it slows new plastic
+            and recycling does not. It is not a way to clean up the sea. Paper still takes resources to make, can have
+            plastic coatings, and does not dissolve harmlessly the moment it reaches the water.</p>
+        </div>
+        <div>
+          <h3>Why the water has a limit</h3>
+          <p>To keep the page responsive, the water shows at most 200 pieces at once. Past that, new plastic is still
+            added to the counter but is not drawn. The limit is about rendering, not a sign that the real problem
+            levels off.</p>
+        </div>
+      </div>
+      <p class="sources">Figures: Pew Charitable Trusts &amp; SYSTEMIQ, <cite>Breaking the Plastic Wave</cite>
+        (2020); Eriksen et al., <cite>PLOS ONE</cite> (2014).</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Ryan Gao · CCLab, Fall 2025 · Interactive Simulation of Plastic Pollution</p>
   </footer>
-  </div>
 
-  <!-- the script tag below should always be at the bottom, right before the closing body tag -->
   <script src="sketch.js"></script>
 </body>
 
